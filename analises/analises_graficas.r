@@ -11,21 +11,41 @@ hw21 <- readr::read_rds("data/piloto_hack.rds")
 
 # 1. Formação em dados abertos. -------------------------------------------
 
-hw21 %>%
+formacao_dados <- hw21 %>%
   ggplot(aes(x = formacao_dados, fill = formacao_dados)) +
-  geom_bar() +
+  geom_bar(width = 0.6) +
   theme_minimal() +
-  labs(x = "",
+  labs(title = "Formação sobre gerenciamento de dados de pesquisa",
+       x = "",
        y = "Contagem") +
-  theme(legend.position = "none") +
-  scale_fill_hue(c = 40) +
+  theme(
+    legend.position = "none",
+    text = element_text(size = 16),
+    axis.title.y = element_text(size = 12)
+  ) +
+  scale_fill_manual(
+    values = c(
+      "Sim (institucionalmente)" = "#264653",
+      "Sim (curso online)" = "#2a9d8f",
+      "Não" = "#f4a261"
+    )
+  ) +
   stat_count(
     geom = "text",
     aes(label = stat(count)),
     position = position_stack(vjust = 0.5),
-    colour = "black"
+    colour = "#e9ebf0"
   )
 
+# Salvando
+
+# ggsave(
+#   "graficos/formacao_dados.jpeg",
+#   device = "jpeg",
+#   dpi = 600,
+#   width = 8,
+#   height = 6
+# )
 
 # 2. Utilizo dados produzidos por terceiros. ----------------------------
 
